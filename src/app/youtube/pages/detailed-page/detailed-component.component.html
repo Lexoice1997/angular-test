@@ -1,0 +1,19 @@
+<div class="card">
+  <button (click)="handleBack()"><</button>
+  <img
+    src="{{ item.snippet.thumbnails.high.url }}"
+    alt="{{ item.snippet.title }}"
+    height="{{ item.snippet.thumbnails.high.height }}"
+    width="{{ item.snippet.thumbnails.high.width }}"
+  />
+  <div class="right" [ngStyle]="borderStyle">
+    <div class="right__title">
+      <h2>{{ item.snippet.title }}</h2>
+      <p>{{ item.snippet.publishedAt }}</p>
+    </div>
+    <div>
+      <p>Description</p>
+      <p class="right__description">{{ item.snippet.description }}</p>
+    </div>
+  </div>
+</div>

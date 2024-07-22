@@ -1,0 +1,36 @@
+<div class="header">
+  <div class="inner">
+    <div class="top">
+      <div class="search">
+        <img src="public/logo.png" alt="logo" />
+        <div class="search__content">
+          <input
+            type="text"
+            placeholder="Kuji Podcast"
+            #search
+            value="{{ searchValue }}"
+          />
+          <button (click)="onSearchValue(search.value)">search</button>
+        </div>
+        <button class="filter_btn" (click)="toggleVisibleFilter()">
+          <app-filter-icon></app-filter-icon>
+        </button>
+      </div>
+      <div class="top__profile">
+        Azamat <app-profile-icon></app-profile-icon>
+        <button class="filter_btn" (click)="onLogout()">Выход</button>
+      </div>
+    </div>
+    @if (visibleFilter) {
+    <div class="sort">
+      <span>Sorting by:</span>
+      <span class="sort__item" (click)="sortByDate()">date</span>
+      <span class="sort__item" (click)="sortByCounts()">count of views</span>
+      <span class="sort__item" (click)="onSearchWordNSentence(searchWord.value)"
+        >by word or sentence</span
+      >
+      <input type="text" value="{{ searchByWordValue }}" #searchWord />
+    </div>
+    }
+  </div>
+</div>

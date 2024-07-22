@@ -1,0 +1,26 @@
+<div class="card">
+  <h2>Login</h2>
+  <div>
+    <div class="form__item">
+      <label for="login">login</label>
+      <input
+        type="text"
+        placeholder="Done Joe"
+        value="{{ login }}"
+        (change)="onChangeLogin($event)"
+      />
+    </div>
+    <div class="form__item">
+      <label for="login">password</label>
+      <input
+        type="password"
+        placeholder="******"
+        value="{{ password }}"
+        (change)="onChangePassword($event)"
+      />
+    </div>
+    <div class="form__btn">
+      <button type="submit" (click)="onSubmit()">Login</button>
+    </div>
+  </div>
+</div>
