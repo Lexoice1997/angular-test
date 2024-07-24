@@ -1,15 +1,10 @@
 <div class="search_item" [ngStyle]="borderStyle">
-  <img
-    src="{{ item.snippet.thumbnails.default.url }}"
-    alt="{{ item.snippet.title }}"
-  />
+  <img src="{{ item.snippet.thumbnails.default?.url }}" />
   <div class="counts">
-    <span><viewed-icon></viewed-icon> {{ item.statistics.viewCount }}</span
-    ><span><like-icon></like-icon> {{ item.statistics.likeCount }}</span
+    <span><viewed-icon></viewed-icon> {{ item.statistics?.viewCount }}</span
+    ><span><like-icon></like-icon> {{ item.statistics?.likeCount }}</span
     ><span
-      ><dislike-icon></dislike-icon> {{ item.statistics.dislikeCount }}</span
-    ><span
-      ><comment-icon></comment-icon> {{ item.statistics.commentCount }}</span
+      ><comment-icon></comment-icon> {{ item.statistics?.commentCount }}</span
     >
   </div>
   <h3>{{ item.snippet.title }}</h3>

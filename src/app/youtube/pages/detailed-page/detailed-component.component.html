@@ -1,10 +1,10 @@
 <div class="card">
   <button (click)="handleBack()"><</button>
   <img
-    src="{{ item.snippet.thumbnails.high.url }}"
+    src="{{ item.snippet.thumbnails.high?.url }}"
     alt="{{ item.snippet.title }}"
-    height="{{ item.snippet.thumbnails.high.height }}"
-    width="{{ item.snippet.thumbnails.high.width }}"
+    height="{{ item.snippet.thumbnails.high?.height }}"
+    width="{{ item.snippet.thumbnails.high?.width }}"
   />
   <div class="right" [ngStyle]="borderStyle">
     <div class="right__title">

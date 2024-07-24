@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginPageComponent {
   public password = '';
 
   constructor(private authService: AuthService) {
-    console.log('login: azamat');
+    console.log('login: azamat@gmail.com');
     console.log('password: 12345');
   }
 

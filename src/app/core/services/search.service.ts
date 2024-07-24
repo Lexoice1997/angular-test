@@ -24,24 +24,36 @@ export class SearchService {
     }
   }
 
-  sortByAscNDesc(queryParams: Params, key: string) {
-    if (!queryParams.hasOwnProperty(key)) {
+  sortByDate(queryParams: Params) {
+    if (!queryParams.hasOwnProperty('date')) {
       this.router.navigate([], {
         queryParams: {
           ...queryParams,
-          [key]: 'ASC',
-        },
-      });
-    } else if (queryParams[key] === 'ASC') {
-      this.router.navigate([], {
-        queryParams: {
-          ...queryParams,
-          [key]: 'DESC',
+          date: true,
         },
       });
     } else {
       const copyQueryParams = { ...queryParams };
-      delete copyQueryParams[key];
+      delete copyQueryParams['date'];
+      this.router.navigate([], {
+        queryParams: {
+          ...copyQueryParams,
+        },
+      });
+    }
+  }
+
+  sortByCount(queryParams: Params) {
+    if (!queryParams.hasOwnProperty('viewCount')) {
+      this.router.navigate([], {
+        queryParams: {
+          ...queryParams,
+          viewCount: true,
+        },
+      });
+    } else {
+      const copyQueryParams = { ...queryParams };
+      delete copyQueryParams['viewCount'];
       this.router.navigate([], {
         queryParams: {
           ...copyQueryParams,

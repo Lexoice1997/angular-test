@@ -1,12 +1,12 @@
 import { NgStyle } from '@angular/common';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CommentIconComponent } from '../../../assets/icon/comment-icon.component';
 import { DislikeIconComponent } from '../../../assets/icon/dislike-icon.component';
 import { LikeIconComponent } from '../../../assets/icon/like-icon.component';
 import { ViewedIconComponent } from '../../../assets/icon/viewed-icon.component';
-import { ResultModel } from '../../../models/resultModel';
+import { SearchModel } from '../../../models/searchModel';
 import { BorderColorService } from '../../../services/border-color.service';
 
 @Component({
@@ -24,7 +24,7 @@ import { BorderColorService } from '../../../services/border-color.service';
   styleUrls: ['./search-item.component.scss'],
 })
 export class SearchItemComponent implements OnInit {
-  @Input() item!: ResultModel;
+  @Input() item!: SearchModel;
   borderStyle = {};
 
   constructor(

@@ -1,47 +1,56 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { sortType } from '../../../../core/types/sortType';
-import { ResultModel } from '../../../models/resultModel';
-import { SortService } from '../../../services/sort.service';
+import { SearchModel } from '../../../models/searchModel';
+import { SearchService } from '../../../services/search.service';
 import { SearchItemComponent } from '../search-item/search-item.component';
 
 @Component({
   selector: 'app-search-results',
   standalone: true,
   imports: [SearchItemComponent],
-  providers: [SortService],
+  providers: [SearchService],
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent {
-  results: ResultModel[];
+  results: SearchModel[] = [];
 
-  constructor(private route: ActivatedRoute, private sortService: SortService) {
-    this.results = this.sortService.results;
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private searchService: SearchService
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       const search: string = params['search'];
       const searchWord: string = params['word'];
-      const count: sortType = params['count'];
-      const date: sortType = params['date'];
+      const count = params['viewCount'];
+      const date = params['date'];
+      const sortBy = () => {
+        if (count && !date) {
+          return 'viewCount';
+        }
+        if (date && !count) {
+          return 'date';
+        }
+        return false;
+      };
 
       if (search && search.length > 0) {
-        this.results = this.sortService.searchFn(search, 'title');
+        this.searchService.searchFn(search, sortBy()).subscribe((data) => {
+          this.results = data.items;
+
+          this.searchService
+            .statisticsFn(data.items.map((item) => item.id.videoId))
+            .subscribe((res) => {
+              this.results = res.items;
+            });
+        });
       }
-      if (searchWord && searchWord.length > 0) {
-        this.results = this.sortService.searchFn(searchWord, 'description');
-      }
+
       if (!search && !searchWord) {
-        this.results = this.results = [];
-      }
-      if (count) {
-        this.results = this.sortService.sortByCount(count);
-      }
-      if (date) {
-        this.results = this.sortService.sortByDate(date);
+        this.results = [];
       }
     });
   }

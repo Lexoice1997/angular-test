@@ -7,10 +7,9 @@
           <input
             type="text"
             placeholder="Kuji Podcast"
-            #search
-            value="{{ searchValue }}"
+            [(ngModel)]="searchValue" 
+            (input)="onSearchValue()"
           />
-          <button (click)="onSearchValue(search.value)">search</button>
         </div>
         <button class="filter_btn" (click)="toggleVisibleFilter()">
           <app-filter-icon></app-filter-icon>
@@ -18,7 +17,11 @@
       </div>
       <div class="top__profile">
         Azamat <app-profile-icon></app-profile-icon>
+        @if(isLogged()) {
         <button class="filter_btn" (click)="onLogout()">Выход</button>
+        } @else {
+        <button class="filter_btn" (click)="onLoginPage()">Вход</button>
+        }
       </div>
     </div>
     @if (visibleFilter) {
