@@ -14,7 +14,7 @@ import { SearchItemComponent } from '../search-item/search-item.component';
   styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent {
-  results: SearchModel[] = [];
+  public results: SearchModel[] = [];
 
   constructor(
     private route: ActivatedRoute,

@@ -25,7 +25,7 @@ import { BorderColorService } from '../../../services/border-color.service';
 })
 export class SearchItemComponent implements OnInit {
   @Input() item!: SearchModel;
-  borderStyle = {};
+  public borderStyle = {};
 
   constructor(
     private router: Router,
@@ -36,7 +36,7 @@ export class SearchItemComponent implements OnInit {
     this.borderStyle = this.borderColorService.handleSetColor(this.item);
   }
 
-  onNavigate() {
+  public onNavigate() {
     this.router.navigate(['home', this.item.id]);
   }
 }

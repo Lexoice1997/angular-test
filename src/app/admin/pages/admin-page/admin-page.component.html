@@ -1,0 +1,83 @@
+<div class="card">
+  <h2>Create new card</h2>
+  <form
+    autocomplete="off"
+    [formGroup]="cardForm"
+    (submit)="cardForm.valid && onSubmit()"
+  >
+    <div class="form__item">
+      <label for="title">Title</label>
+      <input id="title" formControlName="title" type="text" />
+      @if (title?.invalid && (title?.dirty || title?.touched)) {
+      <div *ngIf="title?.errors?.['required']" class="error">
+        Please enter a title
+      </div>
+      <div *ngIf="title?.errors?.['maxlength']" class="error">
+        The title is too long
+      </div>
+      <div *ngIf="title?.errors?.['minlength']" class="error">
+        The title is too short
+      </div>
+      }
+    </div>
+    <div class="form__item">
+      <label for="login">Description</label>
+      <input id="description" formControlName="description" type="text" />
+      @if (description?.invalid && (description?.dirty || description?.touched))
+      {
+      <div *ngIf="description?.errors?.['maxlength']" class="error">
+        The description is too long
+      </div>
+      }
+    </div>
+    <div class="form__item">
+      <label for="img">Img</label>
+      <input id="img" formControlName="img" type="text" />
+      @if (img?.invalid && (img?.dirty || img?.touched)) {
+      <div *ngIf="img?.errors?.['required']" class="error">
+        Please enter a link to the image
+      </div>
+      }
+    </div>
+    <div class="form__item">
+      <label for="linkVideo">Link video</label>
+      <input id="linkVideo" formControlName="linkVideo" type="text" />
+      @if (linkVideo?.invalid && (linkVideo?.dirty || linkVideo?.touched)) {
+      <div *ngIf="linkVideo?.errors?.['required']" class="error">
+        Please enter a link to the video
+      </div>
+      }
+    </div>
+    <div class="form__item">
+      <label for="creationDate">Create date</label>
+      <input id="creationDate" formControlName="creationDate" type="date" />
+      @if (creationDate?.invalid && (creationDate?.dirty ||
+      creationDate?.touched)) {
+      <div *ngIf="creationDate?.errors?.['required']" class="error">
+        Please enter a creation date
+      </div>
+      }
+    </div>
+    <div class="form__tags" formArrayName="tags">
+      <div *ngFor="let tag of tags.controls; let i = index">
+        <div class="tags__item">
+          <div class="form__item">
+            <label for="tag-{{ i }}">Tags:</label>
+            <input id="tag-{{ i }}" type="text" [formControlName]="i" />
+            @if (tag?.invalid && (tag?.dirty || tag?.touched)) {
+            <div *ngIf="tag?.errors?.['required']" class="error">
+              Tag is required.
+            </div>
+            }
+          </div>
+          <button (click)="removeTag(i)">delete</button>
+        </div>
+      </div>
+      <button (click)="addTag()">Add</button>
+    </div>
+    <div class="form__btn">
+      <button class="form__reset" (click)="onReset()">reset</button>
+      <button type="submit" [disabled]="cardForm.invalid">Login</button>
+    </div>
+  </form>
+</div>

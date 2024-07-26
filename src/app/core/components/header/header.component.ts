@@ -26,10 +26,10 @@ import { ProfileIconComponent } from './icon/profile-icon.component';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private searchSubject = new Subject<string>();
-  visibleFilter: boolean = true;
-  searchValue: string = '';
-  searchByWordValue: string = '';
-  queryParams: Params = {};
+  private queryParams: Params = {};
+  public visibleFilter: boolean = true;
+  public searchValue: string = '';
+  public searchByWordValue: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -47,45 +47,52 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
       this.performSearch(searchValue);
     });
+    this.route.url.subscribe((url) => {
+      console.log(url[0].path);
+    });
   }
 
   ngOnDestroy() {
     this.searchSubject.complete();
   }
 
-  performSearch(searchValue: string) {
+  private performSearch(searchValue: string) {
     this.searchService.searchFn(this.queryParams, searchValue, 'search');
   }
 
-  onLogout() {
+  public onLogout() {
     this.authService.logout();
   }
 
-  onLoginPage() {
+  public onLoginPage() {
     this.router.navigate(['/login']);
   }
 
-  isLogged() {
+  public onAdminPage() {
+    this.router.navigate(['/admin']);
+  }
+
+  public isLogged() {
     return this.authService.isLogging();
   }
 
-  toggleVisibleFilter() {
+  public toggleVisibleFilter() {
     this.visibleFilter = !this.visibleFilter;
   }
 
-  onSearchValue() {
+  public onSearchValue() {
     this.searchSubject.next(this.searchValue);
   }
 
-  onSearchWordNSentence(value: string) {
+  public onSearchWordNSentence(value: string) {
     this.searchService.searchFn(this.queryParams, value, 'word');
   }
 
-  sortByDate() {
+  public sortByDate() {
     this.searchService.sortByDate(this.queryParams);
   }
 
-  sortByCounts() {
+  public sortByCounts() {
     this.searchService.sortByCount(this.queryParams);
   }
 }

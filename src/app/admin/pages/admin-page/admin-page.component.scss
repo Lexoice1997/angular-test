@@ -31,7 +31,7 @@
       font-size: 10px;
     }
 
-    .ng-invalid.ng-touched{
+    .ng-invalid.ng-touched {
       border: 1px solid red;
     }
 
@@ -49,9 +49,27 @@
     }
   }
 
+  .tags__item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      width: 50px;
+      height: 25px;
+    }
+  }
+
   .form__btn {
     display: flex;
     justify-content: flex-end;
+    gap: 20px;
+
+    .form__reset {
+      background: #dbdbdb;
+      color: #000;
+    }
 
     button {
       padding: 5px 20px;
@@ -61,6 +79,7 @@
       color: #ffffff;
       font-size: 12px;
       border-radius: 5px;
+      cursor: pointer;
 
       &:disabled {
         background-color: rgb(148, 145, 145);

@@ -4,9 +4,9 @@ import { SearchModel } from '../models/searchModel';
 
 @Injectable()
 export class BorderColorService {
-  borderStyle: Record<string, string> = {};
+  public borderStyle: Record<string, string> = {};
 
-  handleSetColor(item: SearchModel) {
+  public handleSetColor(item: SearchModel) {
     const publishedDate = new Date(item.snippet.publishedAt);
     const today = new Date();
     const diffDate =

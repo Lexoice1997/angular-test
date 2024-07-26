@@ -5,7 +5,7 @@ import { Params, Router } from '@angular/router';
 export class SearchService {
   constructor(private router: Router) {}
 
-  searchFn(queryParams: Params, value: string, searchKey: 'search' | 'word') {
+  public searchFn(queryParams: Params, value: string, searchKey: 'search' | 'word') {
     if (value === '') {
       const copyQueryParams = { ...queryParams };
       delete copyQueryParams[searchKey];
@@ -24,7 +24,7 @@ export class SearchService {
     }
   }
 
-  sortByDate(queryParams: Params) {
+  public sortByDate(queryParams: Params) {
     if (!queryParams.hasOwnProperty('date')) {
       this.router.navigate([], {
         queryParams: {
@@ -43,7 +43,7 @@ export class SearchService {
     }
   }
 
-  sortByCount(queryParams: Params) {
+  public sortByCount(queryParams: Params) {
     if (!queryParams.hasOwnProperty('viewCount')) {
       this.router.navigate([], {
         queryParams: {

@@ -13,7 +13,7 @@ export class SearchService {
 
   constructor(private http: HttpClient) {}
 
-  searchFn(
+  public searchFn(
     value: string,
     sortBy: string | boolean
   ): Observable<Pagination<SearchModel>> {
@@ -30,7 +30,7 @@ export class SearchService {
     return this.http.get<Pagination<SearchModel>>(this.SEARCH_URL, { params });
   }
 
-  statisticsFn(ids: string[]) {
+  public statisticsFn(ids: string[]) {
     const params = new HttpParams()
       .set('id', ids.join(','))
       .set('key', API_KEY)
@@ -39,7 +39,7 @@ export class SearchService {
     return this.http.get<Pagination<SearchModel>>(this.VIDEOS_URL, { params });
   }
 
-  getOneVideo(id: string) {
+  public getOneVideo(id: string) {
     const params = new HttpParams()
       .set('id', id)
       .set('key', API_KEY)

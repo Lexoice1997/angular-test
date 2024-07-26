@@ -2,23 +2,23 @@ import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 const LOGIN = 'azamat@gmail.com';
-const PASSWORD = '12345';
+const PASSWORD = 'Azamat@1997';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private TOKEN = 'hello my friends';
   public isLogged = signal<boolean>(false);
-  TOKEN = 'hello my friends';
 
   constructor(private router: Router) {}
 
-  isLogging() {
+  public isLogging() {
     if (this.isLogged()) {
       return true;
     }
     return false;
   }
 
-  login(login: string, password: string) {
+  public login(login: string, password: string) {
     if (login === LOGIN && password === PASSWORD) {
       localStorage.setItem('isAuth', '1');
       this.isLogged.set(true);
@@ -26,13 +26,13 @@ export class AuthService {
     }
   }
 
-  logout() {
+  public logout() {
     localStorage.removeItem('isAuth');
     this.isLogged.set(false);
     this.router.navigate(['/login']);
   }
 
-  getToken() {
+  public getToken() {
     return this.TOKEN;
   }
 }

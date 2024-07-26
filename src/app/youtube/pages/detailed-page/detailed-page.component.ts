@@ -15,7 +15,7 @@ import { SearchService } from '../../services/search.service';
   styleUrls: ['./detailed-page.component.scss'],
 })
 export class DetailedPageComponent implements OnInit {
-  item: SearchModel = {
+  public item: SearchModel = {
     etag: '',
     id: { kind: '', videoId: '' },
     kind: '',
@@ -38,7 +38,7 @@ export class DetailedPageComponent implements OnInit {
       defaultAudioLanguage: '',
     },
   };
-  borderStyle: Record<string, string> = {};
+  public borderStyle: Record<string, string> = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -56,7 +56,7 @@ export class DetailedPageComponent implements OnInit {
     });
   }
 
-  handleBack() {
+  public handleBack() {
     this.router.navigate(['/home']);
   }
 }

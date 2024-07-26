@@ -7,7 +7,7 @@
           <input
             type="text"
             placeholder="Kuji Podcast"
-            [(ngModel)]="searchValue" 
+            [(ngModel)]="searchValue"
             (input)="onSearchValue()"
           />
         </div>
@@ -17,6 +17,7 @@
       </div>
       <div class="top__profile">
         Azamat <app-profile-icon></app-profile-icon>
+        <button (click)="onAdminPage()">admin</button>
         @if(isLogged()) {
         <button class="filter_btn" (click)="onLogout()">Выход</button>
         } @else {
