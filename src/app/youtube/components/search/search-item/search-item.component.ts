@@ -1,13 +1,14 @@
 import { NgStyle } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CommentIconComponent } from '../../../assets/icon/comment-icon.component';
 import { DislikeIconComponent } from '../../../assets/icon/dislike-icon.component';
 import { LikeIconComponent } from '../../../assets/icon/like-icon.component';
 import { ViewedIconComponent } from '../../../assets/icon/viewed-icon.component';
-import { SearchModel } from '../../../models/searchModel';
+import { VideoModel } from '../../../models/videoModel';
 import { BorderColorService } from '../../../services/border-color.service';
+import { youtubeStore } from '../../../../redux/youtube.store';
 
 @Component({
   selector: 'app-search-item',
@@ -24,7 +25,8 @@ import { BorderColorService } from '../../../services/border-color.service';
   styleUrls: ['./search-item.component.scss'],
 })
 export class SearchItemComponent implements OnInit {
-  @Input() item!: SearchModel;
+  readonly store = inject(youtubeStore)
+  @Input() item!: VideoModel;
   public borderStyle = {};
 
   constructor(

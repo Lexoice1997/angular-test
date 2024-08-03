@@ -3,6 +3,7 @@ import { AdminPageComponent } from './admin/pages/admin-page/admin-page.componen
 import { LoginPageComponent } from './auth/pages/login/login.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { PageNotFoundComponent } from './core/pages/404/404.component';
+import { FavoritePageComponent } from './favorite/pages/favorite-page.component';
 import { SearchResultsComponent } from './youtube/components/search/search-results/search-results.component';
 import { DetailedPageComponent } from './youtube/pages/detailed-page/detailed-page.component';
 
@@ -20,6 +21,11 @@ export const routes: Routes = [
   {
     path: 'home/:id',
     component: DetailedPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'favorite',
+    component: FavoritePageComponent,
     canActivate: [AuthGuard],
   },
   {

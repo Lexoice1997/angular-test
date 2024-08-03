@@ -9,13 +9,13 @@ export class SearchService {
     if (value === '') {
       const copyQueryParams = { ...queryParams };
       delete copyQueryParams[searchKey];
-      this.router.navigate([], {
+      this.router.navigate(["/home"], {
         queryParams: {
           ...copyQueryParams,
         },
       });
     } else {
-      this.router.navigate([], {
+      this.router.navigate(["/home"], {
         queryParams: {
           ...queryParams,
           [searchKey]: value,

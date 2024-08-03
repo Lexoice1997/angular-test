@@ -1,15 +1,17 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { API_KEY } from '../../../environments/environment.prod';
 import { Pagination } from '../../shared/models/pagination';
 import { SearchModel } from '../models/searchModel';
+import { VideoModel } from '../models/videoModel';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchService {
   private readonly SEARCH_URL = 'search';
   private readonly VIDEOS_URL = 'videos';
+  public results = signal<SearchModel[]>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -21,6 +23,7 @@ export class SearchService {
       .set('q', value)
       .set('key', API_KEY)
       .set('part', 'snippet')
+      .set('maxResults', 20)
       .set('type', 'video');
 
     if (sortBy) {
@@ -34,9 +37,10 @@ export class SearchService {
     const params = new HttpParams()
       .set('id', ids.join(','))
       .set('key', API_KEY)
+      .set('maxResults', 20)
       .set('part', 'snippet,statistics');
 
-    return this.http.get<Pagination<SearchModel>>(this.VIDEOS_URL, { params });
+    return this.http.get<Pagination<VideoModel>>(this.VIDEOS_URL, { params });
   }
 
   public getOneVideo(id: string) {
@@ -45,6 +49,6 @@ export class SearchService {
       .set('key', API_KEY)
       .set('part', 'snippet,statistics');
 
-    return this.http.get<Pagination<SearchModel>>(this.VIDEOS_URL, { params });
+    return this.http.get<Pagination<VideoModel>>(this.VIDEOS_URL, { params });
   }
 }

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { SearchModel } from '../models/searchModel';
+import { VideoModel } from '../models/videoModel';
 
 @Injectable()
 export class BorderColorService {
   public borderStyle: Record<string, string> = {};
 
-  public handleSetColor(item: SearchModel) {
+  public handleSetColor(item: VideoModel) {
     const publishedDate = new Date(item.snippet.publishedAt);
     const today = new Date();
     const diffDate =

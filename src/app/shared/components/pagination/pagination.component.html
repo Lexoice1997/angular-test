@@ -1,0 +1,5 @@
+<div class="pagination">
+  @for(item of pages$(); track item) {
+  <button (click)="onChangePage(item)">{{ item }}</button>
+  }
+</div>

@@ -9,6 +9,14 @@
   </div>
   <h3>{{ item.snippet.title }}</h3>
   <div class="button">
+    @if(item.isFavorite) {
+    <button (click)="store.removeFromFavorite(item.id)">удалить с избранного</button>
+    } @else {
+    <button (click)="store.addToFavorite(item.id)">избранное</button>
+    }
+    <button (click)="store.deleteVideo(item.id)">удалить</button>
+  </div>
+  <div class="button">
     <button (click)="onNavigate()">more...</button>
   </div>
 </div>

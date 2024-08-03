@@ -2,7 +2,7 @@
   <div class="inner">
     <div class="top">
       <div class="search">
-        <img src="public/logo.png" alt="logo" />
+        <h2 (click)="onMainPage()">Logo</h2>
         <div class="search__content">
           <input
             type="text"
@@ -17,6 +17,9 @@
       </div>
       <div class="top__profile">
         Azamat <app-profile-icon></app-profile-icon>
+        <button (click)="onFavoritePage()">
+          favorite ({{ store.favoritesCount() }})
+        </button>
         <button (click)="onAdminPage()">admin</button>
         @if(isLogged()) {
         <button class="filter_btn" (click)="onLogout()">Выход</button>

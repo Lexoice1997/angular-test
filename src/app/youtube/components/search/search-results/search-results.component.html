@@ -1,7 +1,8 @@
 <div class="search_results">
   <div class="content">
-    @for (item of results; track item) {
+    @for (item of store.currentPageVideos(); track item) {
     <app-search-item [item]="item"></app-search-item>
     }
   </div>
+  <pagination [itemsCount]="store.videos().length"></pagination>
 </div>

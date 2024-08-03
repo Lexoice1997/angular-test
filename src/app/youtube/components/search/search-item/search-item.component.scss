@@ -1,5 +1,5 @@
 :host {
-  height: 327px;
+  height: 370px;
   width: 263px;
 }
 
@@ -42,11 +42,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
+    margin-bottom: 5px;
 
     button {
       padding: 6px 25px;
 
       color: #ffffff;
+      cursor: pointer;
       font-size: 12px;
       background: #2f80ed;
       border: none;

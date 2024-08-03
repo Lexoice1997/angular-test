@@ -1,10 +1,11 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, debounceTime } from 'rxjs';
 
 import { AuthService } from '../../../auth/services/auth.service';
+import { youtubeStore } from '../../../redux/youtube.store';
 import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 import { SearchService } from '../../services/search.service';
 import { FilterIconComponent } from './icon/filter-icon.component';
@@ -25,6 +26,7 @@ import { ProfileIconComponent } from './icon/profile-icon.component';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  readonly store = inject(youtubeStore);
   private searchSubject = new Subject<string>();
   private queryParams: Params = {};
   public visibleFilter: boolean = true;
@@ -47,9 +49,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
       this.performSearch(searchValue);
     });
-    this.route.url.subscribe((url) => {
-      console.log(url[0].path);
-    });
   }
 
   ngOnDestroy() {
@@ -70,6 +69,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public onAdminPage() {
     this.router.navigate(['/admin']);
+  }
+
+  public onFavoritePage() {
+    this.router.navigate(['/favorite']);
+  }
+
+  public onMainPage() {
+    this.router.navigate(['/home']);
   }
 
   public isLogged() {

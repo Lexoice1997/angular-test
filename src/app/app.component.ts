@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 import { MainLayoutComponent } from './core/components/main-layout/main-layout.component';
 
 @Component({

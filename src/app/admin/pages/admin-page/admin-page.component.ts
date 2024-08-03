@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -7,6 +7,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { v4 as uuidv4 } from 'uuid';
+
+import { youtubeStore } from '../../../redux/youtube.store';
 import { notBeFutureDateValidator } from '../../validators/date.validator';
 
 @Component({
@@ -15,8 +18,10 @@ import { notBeFutureDateValidator } from '../../validators/date.validator';
   imports: [ReactiveFormsModule, NgIf, NgFor],
   templateUrl: './admin-page.component.html',
   styleUrl: './admin-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminPageComponent {
+  readonly store = inject(youtubeStore);
   private formBuilder = inject(FormBuilder);
   cardForm: FormGroup;
 
@@ -85,7 +90,29 @@ export class AdminPageComponent {
   }
 
   onSubmit() {
-    if (this.cardForm.valid) {
-    }
+    this.store.addVideo({
+      etag: '',
+      id: uuidv4(),
+      kind: '',
+      isFavorite: false,
+      snippet: {
+        publishedAt: this.cardForm.value.creationDate,
+        channelId: '',
+        title: this.cardForm.value.title,
+        description: this.cardForm.value.description,
+        thumbnails: {
+          high: { url: this.cardForm.value.img, width: 100, height: 100 },
+        },
+        channelTitle: '',
+        tags: this.cardForm.value.tags,
+        categoryId: '',
+        liveBroadcastContent: '',
+        localized: {
+          title: '',
+          description: '',
+        },
+        defaultAudioLanguage: '',
+      },
+    });
   }
 }

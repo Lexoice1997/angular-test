@@ -1,8 +1,13 @@
 import { NgStyle } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { SearchModel } from '../../models/searchModel';
+import { youtubeStore } from '../../../redux/youtube.store';
 import { BorderColorService } from '../../services/border-color.service';
 import { SearchService } from '../../services/search.service';
 
@@ -13,46 +18,26 @@ import { SearchService } from '../../services/search.service';
   providers: [BorderColorService, SearchService],
   templateUrl: './detailed-component.component.html',
   styleUrls: ['./detailed-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailedPageComponent implements OnInit {
-  public item: SearchModel = {
-    etag: '',
-    id: { kind: '', videoId: '' },
-    kind: '',
-    snippet: {
-      publishedAt: '',
-      channelId: '',
-      title: '',
-      description: '',
-      thumbnails: {
-        high: { url: '', width: 0, height: 0 },
-      },
-      channelTitle: '',
-      tags: [],
-      categoryId: '',
-      liveBroadcastContent: '',
-      localized: {
-        title: '',
-        description: '',
-      },
-      defaultAudioLanguage: '',
-    },
-  };
+  readonly store = inject(youtubeStore);
+
   public borderStyle: Record<string, string> = {};
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private borderColorService: BorderColorService,
-    private searchService: SearchService
+    private borderColorService: BorderColorService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.searchService
-        .getOneVideo(params['id'])
-        .subscribe((data) => (this.item = data.items[0]));
-      this.borderStyle = this.borderColorService.handleSetColor(this.item);
+      this.store.setOneVideo(params['id']);
+
+      this.borderStyle = this.borderColorService.handleSetColor(
+        this.store.video()
+      );
     });
   }
 
