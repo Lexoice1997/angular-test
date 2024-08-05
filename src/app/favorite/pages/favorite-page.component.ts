@@ -13,7 +13,4 @@ import { SearchItemComponent } from '../../youtube/components/search/search-item
 })
 export class FavoritePageComponent {
   readonly store = inject(youtubeStore);
-  constructor() {
-    console.log(this.store.favorites());
-  }
 }

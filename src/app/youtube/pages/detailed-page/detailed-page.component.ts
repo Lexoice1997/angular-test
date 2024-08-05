@@ -4,6 +4,7 @@ import {
   Component,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
@@ -22,8 +23,7 @@ import { SearchService } from '../../services/search.service';
 })
 export class DetailedPageComponent implements OnInit {
   readonly store = inject(youtubeStore);
-
-  public borderStyle: Record<string, string> = {};
+  public borderStyle = signal<Record<string, string>>({});
 
   constructor(
     private route: ActivatedRoute,
@@ -35,8 +35,8 @@ export class DetailedPageComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.store.setOneVideo(params['id']);
 
-      this.borderStyle = this.borderColorService.handleSetColor(
-        this.store.video()
+      this.borderStyle.set(
+        this.borderColorService.handleSetColor(this.store.video())
       );
     });
   }

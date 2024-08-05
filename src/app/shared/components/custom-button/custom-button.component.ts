@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, input, signal } from '@angular/core';
 
 @Component({
   selector: 'custom-button',
@@ -10,8 +10,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./custom-button.component.scss'],
 })
 export class CustomButtonComponent {
-  @Input() parentFn?: () => void;
-  @Input() className?: string;
+  parentFn = input<() => void>();
+  className = input<string>('');
 
   onClickFn() {
     if (this.parentFn) {

@@ -28,7 +28,7 @@
         }
       </div>
     </div>
-    @if (visibleFilter) {
+    @if (visibleFilter()) {
     <div class="sort">
       <span>Sorting by:</span>
       <span class="sort__item" (click)="sortByDate()">date</span>
@@ -36,7 +36,7 @@
       <span class="sort__item" (click)="onSearchWordNSentence(searchWord.value)"
         >by word or sentence</span
       >
-      <input type="text" value="{{ searchByWordValue }}" #searchWord />
+      <input type="text" value="{{ searchByWordValue() }}" #searchWord />
     </div>
     }
   </div>

@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, debounceTime } from 'rxjs';
@@ -28,10 +28,10 @@ import { ProfileIconComponent } from './icon/profile-icon.component';
 export class HeaderComponent implements OnInit, OnDestroy {
   readonly store = inject(youtubeStore);
   private searchSubject = new Subject<string>();
-  private queryParams: Params = {};
-  public visibleFilter: boolean = true;
-  public searchValue: string = '';
-  public searchByWordValue: string = '';
+  private queryParams = signal<Params>({});
+  public visibleFilter = signal<boolean>(true);
+  public searchValue = signal<string>('');
+  public searchByWordValue = signal<string>('');
 
   constructor(
     private route: ActivatedRoute,
@@ -42,9 +42,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.searchValue = params['search'];
-      this.searchByWordValue = params['word'];
-      this.queryParams = params;
+      this.searchValue.set(params['search']);
+      this.searchByWordValue.set(params['word']);
+      this.queryParams.set(params);
     });
     this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
       this.performSearch(searchValue);
@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private performSearch(searchValue: string) {
-    this.searchService.searchFn(this.queryParams, searchValue, 'search');
+    this.searchService.searchFn(this.queryParams(), searchValue, 'search');
   }
 
   public onLogout() {
@@ -84,22 +84,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public toggleVisibleFilter() {
-    this.visibleFilter = !this.visibleFilter;
+    this.visibleFilter.update((prev) => !prev);
   }
 
   public onSearchValue() {
-    this.searchSubject.next(this.searchValue);
+    this.searchSubject.next(this.searchValue());
   }
 
   public onSearchWordNSentence(value: string) {
-    this.searchService.searchFn(this.queryParams, value, 'word');
+    this.searchService.searchFn(this.queryParams(), value, 'word');
   }
 
   public sortByDate() {
-    this.searchService.sortByDate(this.queryParams);
+    this.searchService.sortByDate(this.queryParams());
   }
 
   public sortByCounts() {
-    this.searchService.sortByCount(this.queryParams);
+    this.searchService.sortByCount(this.queryParams());
   }
 }

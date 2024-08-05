@@ -6,7 +6,7 @@
     height="{{ store.video().snippet.thumbnails.high?.height }}"
     width="{{ store.video().snippet.thumbnails.high?.width }}"
   />
-  <div class="right" [ngStyle]="borderStyle">
+  <div class="right" [ngStyle]="borderStyle()">
     <div class="right__title">
       <h2>{{ store.video().snippet.title }}</h2>
       <p>{{ store.video().snippet.publishedAt }}</p>
